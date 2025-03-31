@@ -5,13 +5,35 @@ function calc(op)
     
     var output = 0;
 
+    if (isNaN(num1) || isNaN(num2)) {
+        alert("Por favor, insira números válidos.");
+        return;
+    }
+
     switch (op)
     {
         case '+' : output = num1 + num2; break;
         case '-' : output = num1 - num2; break;
         case '*' : output = num1 * num2; break;
-        case '/' : output = num1 / num2; break;
+        
+        case '/' :
+            if (num2 === 0)
+            {
+                alert("Erro: Divisão por zero!");
+                return;
+            }
+            output = num1 / num2; break;
     }
 
     document.getElementById("output").value = output;
+    
+    var newHistory = "<div>" + num1 + " " + op + " " + num2 + " " + "=" + " " + output + "</div>";
+    var history    = document.getElementById("history");
+
+    history.innerHTML = newHistory + history.innerHTML;
+
+    if(history.children.length > 10)
+    {
+        history.removeChild(history.childNodes[10]);
+    }
 }
